@@ -1,0 +1,5 @@
+- Use MVC architecture
+- Max 500 lines per file
+- Secure code only (PDO, validation)
+- Modular and reusable code
+- No mixed responsibilities
