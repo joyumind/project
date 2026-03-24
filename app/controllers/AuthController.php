@@ -75,28 +75,41 @@ class AuthController {
     }
 
 
+       // app/controllers/AuthController.php
+
     public static function register() {
+        $errors = [];
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $email = $_POST['email'] ?? '';
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
 
             $userModel = new User();
-            // واجب: التأكد من عدم تكرار البريد
-            if ($userModel->findByEmail($email)) {
-                $error = "البريد الإلكتروني مسجل مسبقاً";
-                require_once __DIR__ . '/../views/auth/register.php';
-            } else {
-                // واجب: التشفير قبل الحفظ
+
+            // 🧠 التحقق من البيانات (Validation)
+            if (strlen($name) < 3) $errors[] = "الاسم يجب أن يكون أكثر من 3 أحرف";
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "البريد الإلكتروني غير صحيح";
+            if (strlen($password) < 6) $errors[] = "كلمة المرور ضعيفة (6 أحرف على الأقل)";
+            
+            if ($userModel->exists($email)) {
+                $errors[] = "هذا البريد الإلكتروني مسجل بالفعل!";
+            }
+
+            if (empty($errors)) {
                 if ($userModel->create($name, $email, $password)) {
+                    // توجيه لصفحة الدخول مع رسالة نجاح
                     header("Location: " . BASE_URL . "/login?success=registered");
                     exit();
                 }
             }
-        } else {
-            require_once __DIR__ . '/../views/auth/register.php';
         }
+        
+        require_once __DIR__ . '/../views/auth/register.php';
     }
+
+
+ 
 
 
 }

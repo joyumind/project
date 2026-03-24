@@ -1,0 +1,29 @@
+# 🗄️ Database & Environment Config
+# لا نرفع كلمة مرور قاعدة البيانات للمستودع العام لأسباب أمنية
+config/config.php
+
+# 📜 Logs & Temporary files
+# تجاهل ملفات السجلات والأخطاء
+*.log
+app/logs/
+temp/
+
+# 💻 OS generated files
+# ملفات يولدها النظام وتسبب فوضى في المستودع
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# 🛠️ IDE & Editor folders
+# تجاهل إعدادات المحرر الخاص بك (VS Code / Cursor)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 📦 Dependency managers
+# إذا بدأت باستخدام Composer لاحقاً
+vendor/
+
+# 🧪 Unit testing
+.phpunit.result.cache

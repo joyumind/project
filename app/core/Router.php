@@ -33,6 +33,11 @@ class Router {
                 ProfileController::edit();
                 break;
 
+            case '/register':
+                require_once '../app/controllers/AuthController.php';
+                AuthController::register();
+                break;
+
             case '/profile/update':
                 require_once '../app/controllers/ProfileController.php';
                 ProfileController::update();
